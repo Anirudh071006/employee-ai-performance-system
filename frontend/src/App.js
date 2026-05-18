@@ -213,13 +213,8 @@ function App() {
                 <strong>Experience:</strong> {employee.experience} years
               </p>
 
-              <div
-                style={{
-                  display: "flex",
-                  gap: "10px",
-                  marginTop: "15px",
-                }}
-              >
+             <div className="button-group">
+              
                 <button onClick={() => getAIRecommendation(employee)}>
                   Get AI Recommendation
                 </button>
