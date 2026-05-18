@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
 
 
 // GET ALL EMPLOYEES
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware, async (req, res) => {
 
     try {
 
