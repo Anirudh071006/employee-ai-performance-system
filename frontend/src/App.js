@@ -19,7 +19,7 @@ function App() {
   const searchEmployees = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/employees/search?department=${searchDepartment}`,
+        `https://employee-ai-performance-system.onrender.com/api/employees/search?department=${searchDepartment}`,
       );
 
       setEmployees(response.data);
@@ -29,7 +29,7 @@ function App() {
   };
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/employees");
+      const response = await axios.get("https://employee-ai-performance-system.onrender.com/api/employees");
 
       setEmployees(response.data);
     } catch (error) {
@@ -52,7 +52,7 @@ function App() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/employees", {
+      await axios.post("https://employee-ai-performance-system.onrender.com/api/employees", {
         ...formData,
         skills: formData.skills.split(","),
       });
@@ -70,7 +70,7 @@ function App() {
     if (!newScore) return;
 
     try {
-      await axios.put(`http://localhost:5000/api/employees/${id}`, {
+      await axios.put(`https://employee-ai-performance-system.onrender.com/api/employees/${id}`, {
         performanceScore: newScore,
       });
 
@@ -83,7 +83,7 @@ function App() {
   };
   const deleteEmployee = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/employees/${id}`);
+      await axios.delete(`https://employee-ai-performance-system.onrender.com/api/employees/${id}`);
 
       alert("Employee Deleted Successfully");
 
@@ -96,7 +96,7 @@ function App() {
   const getAIRecommendation = async (employee) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/ai/recommend",
+        "https://employee-ai-performance-system.onrender.com/api/ai/recommend",
         employee,
       );
 
