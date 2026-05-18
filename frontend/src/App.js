@@ -16,10 +16,11 @@ function App() {
     performanceScore: "",
     experience: "",
   });
+
   const searchEmployees = async () => {
     try {
       const response = await axios.get(
-        `https://employee-ai-performance-system.onrender.com/api/employees/search?department=${searchDepartment}`,
+        `https://employee-ai-performance-system.onrender.com/api/employees/search?department=${searchDepartment}`
       );
 
       setEmployees(response.data);
@@ -27,9 +28,12 @@ function App() {
       console.log(error);
     }
   };
+
   const fetchEmployees = async () => {
     try {
-      const response = await axios.get("https://employee-ai-performance-system.onrender.com/api/employees");
+      const response = await axios.get(
+        "https://employee-ai-performance-system.onrender.com/api/employees"
+      );
 
       setEmployees(response.data);
     } catch (error) {
@@ -37,9 +41,7 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    fetchEmployees();
-  }, []);
+  useEffect(() => {}, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -52,10 +54,13 @@ function App() {
     e.preventDefault();
 
     try {
-      await axios.post("https://employee-ai-performance-system.onrender.com/api/employees", {
-        ...formData,
-        skills: formData.skills.split(","),
-      });
+      await axios.post(
+        "https://employee-ai-performance-system.onrender.com/api/employees",
+        {
+          ...formData,
+          skills: formData.skills.split(","),
+        }
+      );
 
       alert("Employee Added Successfully");
 
@@ -64,15 +69,19 @@ function App() {
       console.log(error);
     }
   };
+
   const updatePerformance = async (id) => {
     const newScore = prompt("Enter New Performance Score");
 
     if (!newScore) return;
 
     try {
-      await axios.put(`https://employee-ai-performance-system.onrender.com/api/employees/${id}`, {
-        performanceScore: newScore,
-      });
+      await axios.put(
+        `https://employee-ai-performance-system.onrender.com/api/employees/${id}`,
+        {
+          performanceScore: newScore,
+        }
+      );
 
       alert("Performance Updated");
 
@@ -81,9 +90,12 @@ function App() {
       console.log(error);
     }
   };
+
   const deleteEmployee = async (id) => {
     try {
-      await axios.delete(`https://employee-ai-performance-system.onrender.com/api/employees/${id}`);
+      await axios.delete(
+        `https://employee-ai-performance-system.onrender.com/api/employees/${id}`
+      );
 
       alert("Employee Deleted Successfully");
 
@@ -97,7 +109,7 @@ function App() {
     try {
       const response = await axios.post(
         "https://employee-ai-performance-system.onrender.com/api/ai/recommend",
-        employee,
+        employee
       );
 
       setAiResult(response.data.recommendation);
@@ -108,7 +120,9 @@ function App() {
 
   return (
     <div className="container">
-      <h1 className="title">AI Employee Performance Analytics System</h1>
+      <h1 className="title">
+        AI Employee Performance Analytics System
+      </h1>
 
       {/* FORM */}
 
@@ -165,13 +179,23 @@ function App() {
           <button type="submit">Add Employee</button>
         </form>
       </div>
+
+      {/* SEARCH + VIEW */}
+
       <div
         style={{
-          marginBottom: "20px",
           display: "flex",
           gap: "10px",
+          marginTop: "25px",
+          marginBottom: "25px",
+          alignItems: "center",
+          flexWrap: "wrap",
         }}
       >
+        <button onClick={fetchEmployees}>
+          View All Employees
+        </button>
+
         <input
           type="text"
           placeholder="Search by Department"
@@ -179,10 +203,15 @@ function App() {
           onChange={(e) => setSearchDepartment(e.target.value)}
         />
 
-        <button onClick={searchEmployees}>Search</button>
+        <button onClick={searchEmployees}>
+          Search
+        </button>
 
-        <button onClick={fetchEmployees}>Reset</button>
+        <button onClick={fetchEmployees}>
+          Reset
+        </button>
       </div>
+
       {/* EMPLOYEE LIST */}
 
       <div className="employee-section">
@@ -202,15 +231,18 @@ function App() {
               </p>
 
               <p>
-                <strong>Skills:</strong> {employee.skills.join(", ")}
+                <strong>Skills:</strong>{" "}
+                {employee.skills.join(", ")}
               </p>
 
               <p>
-                <strong>Performance:</strong> {employee.performanceScore}
+                <strong>Performance:</strong>{" "}
+                {employee.performanceScore}
               </p>
 
               <p>
-                <strong>Experience:</strong> {employee.experience} years
+                <strong>Experience:</strong>{" "}
+                {employee.experience} years
               </p>
 
               <div
@@ -218,24 +250,35 @@ function App() {
                   display: "flex",
                   gap: "10px",
                   marginTop: "15px",
+                  flexWrap: "wrap",
                 }}
               >
-                <button onClick={() => getAIRecommendation(employee)}>
+                <button
+                  onClick={() =>
+                    getAIRecommendation(employee)
+                  }
+                >
                   Get AI Recommendation
                 </button>
+
                 <button
                   style={{
                     backgroundColor: "green",
                   }}
-                  onClick={() => updatePerformance(employee._id)}
+                  onClick={() =>
+                    updatePerformance(employee._id)
+                  }
                 >
                   Update Score
                 </button>
+
                 <button
                   style={{
                     backgroundColor: "red",
                   }}
-                  onClick={() => deleteEmployee(employee._id)}
+                  onClick={() =>
+                    deleteEmployee(employee._id)
+                  }
                 >
                   Delete
                 </button>
